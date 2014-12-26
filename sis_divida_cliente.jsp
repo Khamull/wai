@@ -29,12 +29,12 @@ if(request.getParameter("clienteID")!=null){
 
 
 <%
-//Pesquisa todas a Contas à Receber relacionadas a esse cliente e que sejam do tipo Venda Vale
+//Pesquisa todas a Contas à Receber relacionadas a esse cliente e que sejam do tipo CREDIARIO
 rs = st.executeQuery(receber.pesquisaContaCliente());
 %>
 
 <%
-//Pesquisa quanto é o Total à Receber desse cliente no Venda Vale
+//Pesquisa quanto é o Total à Receber desse cliente no CREDIARIO
 rs01 = st01.executeQuery(receber.totalReceberVale());
 %>
 

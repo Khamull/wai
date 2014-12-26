@@ -17,6 +17,9 @@
 
 <jsp:useBean id="cliente" class="cadastro.Cliente" scope="page"></jsp:useBean>
 
+<jsp:useBean id="receber" class="financeiro.Receber" scope="page"></jsp:useBean>
+
+
 <%
 //Instancia um objeto do tipo Statemenet para auxiliar na query
 Statement st01 = con.createStatement();
@@ -24,6 +27,7 @@ Statement st02 = con.createStatement();
 Statement st03 = con.createStatement();
 Statement st04 = con.createStatement();
 Statement st05 = con.createStatement();
+Statement st06 = con.createStatement();
 %>
 
 <%
@@ -34,6 +38,7 @@ ResultSet rs02 = null;
 ResultSet rs03 = null;
 ResultSet rs04 = null;
 ResultSet rs05 = null;
+ResultSet rs06 = null;
 %>
 
 <%
@@ -82,9 +87,9 @@ cliente.clienteID = Integer.parseInt(rs02.getString("clienteID"));
 //Variaveis que irá receber os dados do Cliente
 String nome = "";
 String cpf = "";
-
+receber.cliente.clienteID = Integer.parseInt(rs02.getString("clienteID"));
 rs05 = st05.executeQuery(cliente.clientePorID());
-
+rs06 = st06.executeQuery(receber.pesquisaContaClienteVendaID(request.getParameter("vendaID")));
 //Atribui os valores às variaveis
 
 if(rs05.next()){
@@ -310,6 +315,41 @@ if(rs03.next()){
 <tr>
  <td align="center" colspan="3">Forma Pgto - <%=formaPagamento %>, <%=vezes%><%=valorParcela%></td>
 </tr>
+		<tr>
+		 	<td align="center" colspan="4">
+		 		<table cellpadding="4" cellspacing="2">
+		 			<tr>
+		 				<td align="center">
+		 					Parcelas
+		 				</td>
+		 				<td align="center" colspan="2">
+		 					Vencto.
+		 				</td>
+		 				
+		 				<td align="center">
+		 					Valor
+		 				</td>		
+		 			</tr>
+		 			<%while(rs06.next()) {%>
+		 			<tr>
+		 				<td align="center">
+		 					<%=rs06.getString("parcela") %>
+		 				</td>
+		 				<td align="center">
+		 					<%=formatar.converteDeData(rs06.getString("vencimento"))%>
+		 				</td>
+		 				<td>
+		 				</td>
+		 				<td align="center">
+		 					<%=formato.format(rs06.getDouble("valor"))%>
+		 				</td>
+		 			</tr>
+		 				
+		 			
+		 			<%} %>
+		 		</table>
+		 	</td>	
+		</tr>
 <%}else{%>
 <tr>
  <td align="center" colspan="3">Forma Pgto - <%=formaPagamento %></td>
@@ -319,7 +359,7 @@ if(rs03.next()){
 
 
 <%
-//Verifica se é uma venda do tipo (Venda Vale) e gera um bloco de Assinatura
+//Verifica se é uma venda do tipo (CREDIARIO) e gera um bloco de Assinatura
 if(forma.formPagID == 7){
 %>
 
@@ -333,7 +373,7 @@ if(forma.formPagID == 7){
  <td height="15" colspan="3"></td>
 </tr>
 <tr>
- <td height="15" align="center" colspan="3"><u>COMPROVANTE VENDA VALE</u></td>
+ <td height="15" align="center" colspan="3"><u>COMPROVANTE CREDIARIO</u></td>
 </tr>
 <tr>
  <td height="15" colspan="3"></td>
@@ -373,6 +413,21 @@ if(forma.formPagID == 7){
 
 <tr>
  <td align="left" colspan="3"><hr></td>
+</tr>
+<tr>
+   <td colspan="4" align="center">
+     Prazo maximo para trocas 7 dias
+   </td>
+</tr>
+<tr>
+   <td colspan="4" align="center">
+    somente com etiqueta no produto 
+  </td>
+</tr>
+<tr>
+  <td colspan="4" align="center">
+   e apresentacao deste cupom!
+  </td>
 </tr>
 <tr>
 <td colspan="3" height="100"></td>

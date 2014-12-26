@@ -2,9 +2,9 @@
 
 <%
 //String acessar= "";
-if(request.getParameter("origem")!=null){
+//if(request.getParameter("origem")!=null){
    session.setAttribute("acesso", "ok");
-}
+//}
 %>
 
 

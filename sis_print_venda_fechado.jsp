@@ -298,7 +298,7 @@ if(rs03.next()){
 
 
 <%
-//Verifica se é uma venda do tipo (Venda Vale) e gera um bloco de Assinatura
+//Verifica se é uma venda do tipo (CREDIARIO) e gera um bloco de Assinatura
 if(forma.formPagID == 7){
 %>
 
@@ -312,7 +312,7 @@ if(forma.formPagID == 7){
  <td height="15" colspan="3"></td>
 </tr>
 <tr>
- <td height="15" align="center" colspan="3"><u>COMPROVANTE VENDA VALE</u></td>
+ <td height="15" align="center" colspan="3"><u>COMPROVANTE CREDIARIO</u></td>
 </tr>
 <tr>
  <td height="15" colspan="3"></td>
